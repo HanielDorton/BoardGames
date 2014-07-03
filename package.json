@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/HanielDorton/BoardGames",
   "dependencies": {
-    "express": "^4.4.5",
-    "logfmt": "^1.1.2"
+    "express": "^3.1.0",
+    "logfmt": "^1.1.2",
+    "mongodb": "^1.4.7",
+    "path": "^0.4.9"
   }
 }
