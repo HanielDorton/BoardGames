@@ -1,0 +1,23 @@
+{
+  "name": "BoardGames",
+  "version": "0.0.0",
+  "description": "My Board Game Collection",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HanielDorton/BoardGames.git"
+  },
+  "author": "Daniel Horton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HanielDorton/BoardGames/issues"
+  },
+  "homepage": "https://github.com/HanielDorton/BoardGames",
+  "dependencies": {
+    "express": "^4.4.5",
+    "logfmt": "^1.1.2"
+  }
+}
