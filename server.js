@@ -19,7 +19,7 @@ app.configure( function() {
     app.use( app.router );
 
     //Where to serve static content
-    app.use( express.static( path.join( application_root, 'site') ) );
+    app.use( express.static( __dirname +  '/site' ) );
 
     //Show all errors in development
     app.use( express.errorHandler({ dumpExceptions: true, showStack: true }));
@@ -36,11 +36,11 @@ app.get( '/api', function( request, response ) {
     response.send( 'Library API is running' );
 });
 
-mongodb.Db.connect('mongodb://localhost/mydb', function (err, db) {
-  db.collection('books', function(er, collection) {
-    collection.insert({'title': 'sherlock holmes', 'author': "Conan Doyle"}, {safe: true}, function(er,rs) {
-    });
-  });
-});
+//mongodb.Db.connect('mongodb://localhost/mydb', function (err, db) {
+ // db.collection('books', function(er, collection) {
+//    collection.insert({'title': 'sherlock holmes', 'author': "Conan Doyle"}, {safe: true}, function(er,rs) {
+//    });
+//  });
+//});
 
 
