@@ -2,7 +2,7 @@
 var application_root = __dirname,
     express = require( 'express' ), //Web framework
     path = require( 'path' ), //Utilities for dealing with file paths
-    mongodb = require( 'mongodb' ); //MongoDB integration
+    mongoose = require ("mongoose");  //MongoDB integration
 
 //Create server
 var app = express();
@@ -36,11 +36,27 @@ app.get( '/api', function( request, response ) {
     response.send( 'Library API is running' );
 });
 
-//mongodb.Db.connect('mongodb://localhost/mydb', function (err, db) {
- // db.collection('books', function(er, collection) {
-//    collection.insert({'title': 'sherlock holmes', 'author': "Conan Doyle"}, {safe: true}, function(er,rs) {
-//    });
-//  });
-//});
+var uristring =
+process.env.MONGOLAB_URI ||
+process.env.MONGOHQ_URL ||
+'mongodb://localhost/HelloMongoose';
+
+mongoose.connect(uristring, function (err, res) {
+  if (err) {
+  console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+  } else {
+  console.log ('Succeeded connected to: ' + uristring);
+  }
+});
+
+//Schemas
+var Book = new mongoose.Schema({
+    title: String,
+    author: String,
+    releaseDate: Date
+});
+
+//Models
+var BookModel = mongoose.model( 'Book', Book );
 
 
