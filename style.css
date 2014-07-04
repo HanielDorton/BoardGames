@@ -39,7 +39,7 @@ body {
     float: left;
 }
 
-#addBook label[for="title"], #addBook label[for="releaseDate"] {
+#addBook label[for="title"], #addBook label[for="releaseDate"], #addBook label[for="keywords"], #addBook label[for="author"] {
     clear: both;
 }
 
@@ -47,7 +47,6 @@ body {
     display: block;
     margin: 5px 20px 10px 10px;
     float: right;
-    clear: both;
 }
 
 #addBook div {
