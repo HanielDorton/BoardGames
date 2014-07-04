@@ -26,9 +26,9 @@ app.configure( function() {
 });
 
 //Start server
-var port = 4711;
-app.listen( port, function() {
-    console.log( 'Express server listening on port %d in %s mode', port, app.settings.env );
+var port = Number(process.env.PORT || 5000);
+app.listen(port, function() {
+  console.log("Listening on " + port);
 });
 
 // Routes
