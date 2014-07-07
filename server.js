@@ -2,7 +2,7 @@
 var application_root = __dirname,
     express = require( 'express' ), //Web framework
     path = require( 'path' ), //Utilities for dealing with file paths
-    mongoose = require ("mongoose");  //MongoDB integration
+    mongoose = require ("mongoose"); //MongoDB integration
 
 //Create server
 var app = express();
@@ -19,7 +19,7 @@ app.configure( function() {
     app.use( app.router );
 
     //Where to serve static content
-    app.use( express.static( __dirname +  '/site' ) );
+    app.use( express.static( __dirname + '/site' ) );
 
     //Show all errors in development
     app.use( express.errorHandler({ dumpExceptions: true, showStack: true }));
@@ -59,7 +59,8 @@ var Keywords = new mongoose.Schema({
 var Book = new mongoose.Schema({
     title: String,
     author: String,
-    keywords: [ Keywords ]  
+    releaseDate: Date,
+    keywords: [ Keywords ]
 });
 
 
@@ -83,6 +84,7 @@ app.post( '/api/books', function( request, response ) {
     var book = new BookModel({
         title: request.body.title,
         author: request.body.author,
+        releaseDate: request.body.releaseDate,
         keywords: request.body.keywords
     });
 
@@ -114,6 +116,7 @@ app.put( '/api/books/:id', function( request, response ) {
     return BookModel.findById( request.params.id, function( err, book ) {
         book.title = request.body.title;
         book.author = request.body.author;
+        book.releaseDate = request.body.releaseDate;
         book.keywords = request.body.keywords;
 
         return book.save( function( err ) {
@@ -141,5 +144,3 @@ app.delete( '/api/books/:id', function( request, response ) {
         });
     });
 });
-
-
