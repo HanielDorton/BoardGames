@@ -2,7 +2,10 @@
 <html>
 <head>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="jquery-ui.css">
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="js/lib/jquery-ui.min.js"></script>
+<script src="js/lib/jquery-dateFormat.js"></script>
 <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
 <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
 <meta name="description" content="Boardgames" />
@@ -32,8 +35,8 @@
     <ul>
         <li><%= title %></li>
         <li><%= author %></li>
-        <li><%= releaseDate %></li>
-        <li><%= keywords %></li>
+	<li><%= $.format.date( new Date( releaseDate ), 'MMMM yyyy' ) %></li>
+        <li><% _.each( keywords, function( keyobj ) {%> <%= keyobj.keyword %><% } ); %></li>
     </ul>
 </script>
 
