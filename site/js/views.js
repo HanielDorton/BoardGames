@@ -16,13 +16,14 @@ app.BookView = Backbone.View.extend({
 app.LibraryView = Backbone.View.extend({
     el: '#books',
 
-    initialize: function( initialBooks ) {
-	
-        this.collection = new app.Library( initialBooks );
-        this.render();
-this.listenTo( this.collection, 'add', this.renderBook );
+    initialize: function() {
+    this.collection = new app.Library();
+    this.collection.fetch({reset: true});
+    this.render();
 
-    },
+    this.listenTo( this.collection, 'add', this.renderBook );
+    this.listenTo( this.collection, 'reset', this.render ); 
+},
 
     // render library by rendering each book in its collection
     render: function() {
