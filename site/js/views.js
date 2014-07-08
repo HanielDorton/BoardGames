@@ -14,7 +14,7 @@ app.BookView = Backbone.View.extend({
 });
 
 app.LibraryView = Backbone.View.extend({
-    el: '#books',
+    el: '#games',
 
     initialize: function() {
     this.collection = new app.Library();
@@ -30,7 +30,9 @@ app.LibraryView = Backbone.View.extend({
         this.collection.each(function( item ) {
             this.renderBook( item );
         }, this );
+	$( '.gamedetails').hide();
     },
+
 
     // render a book by creating a BookView and appending the
     // element it renders to the library's element
@@ -41,15 +43,20 @@ app.LibraryView = Backbone.View.extend({
         this.$el.append( bookView.render().el );
     },
 events:{
-    'click #add':'addBook'
+    'click #add':'addgame',
+    'click #gameimage':'focusgame'
 },
 
-addBook: function( e ) {
+focusgame: function( e ) {
+    $(e.currentTarget).animate({opacity: '.5',});
+    $(e.currentTarget).parent().children('.gamedetails').show();
+},
+addgame: function( e ) {
     e.preventDefault();
 
     var formData = {};
 
-    $( '#addBook div' ).children( 'input' ).each( function( i, el ) {
+    $( '#addgame div' ).children( 'input' ).each( function( i, el ) {
         if( $( el ).val() != '' )
         {
             if( el.id === 'keywords' ) {
