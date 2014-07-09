@@ -1,12 +1,12 @@
 var app = app || {};
 
-app.Book = Backbone.Model.extend({
+app.Game = Backbone.Model.extend({
     defaults: {
         coverImage: 'img/default.jpeg',
         title: 'No title',
-        author: 'Unknown',
-        releaseDate: 'Unknown',
-        keywords: ['none']
+        minPlayers: 0,
+        maxPlayers: 8,
+        Time: 60,
     },
 parse: function( response ) {
     response.id = response._id;

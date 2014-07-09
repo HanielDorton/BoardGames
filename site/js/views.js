@@ -1,9 +1,9 @@
 var app = app || {};
 
-app.BookView = Backbone.View.extend({
+app.GameView = Backbone.View.extend({
     tagName: 'div',
-    className: 'bookContainer',
-    template: _.template( $( '#bookTemplate' ).html() ),
+    className: 'gameContainer',
+    template: _.template( $( '#gameTemplate' ).html() ),
 
     render: function() {
         //this.el is what we defined in tagName. use $el to get access to jQuery html() function
@@ -20,36 +20,76 @@ app.LibraryView = Backbone.View.extend({
     this.collection = new app.Library();
     this.collection.fetch({reset: true});
     this.render();
-
-    this.listenTo( this.collection, 'add', this.renderBook );
+    this.on("change:filterType", this.filterByType, this);
+    this.listenTo( this.collection, 'add', this.renderGame );
     this.listenTo( this.collection, 'reset', this.render );
 },
 
-    // render library by rendering each book in its collection
+
+
+    // render library by rendering each game in its collection
     render: function() {
         this.collection.each(function( item ) {
-            this.renderBook( item );
+            this.renderGame( item );
         }, this );
 	$( '.gamedetails').hide();
     },
 
 
-    // render a book by creating a BookView and appending the
+    // render a game by creating a GameView and appending the
     // element it renders to the library's element
-    renderBook: function( item ) {
-        var bookView = new app.BookView({
+    renderGame: function( item ) {
+        var gameView = new app.GameView({
             model: item
         });
-        this.$el.append( bookView.render().el );
+        this.$el.append( gameView.render().el );
     },
 events:{
     'click #add':'addgame',
-    'click #gameimage':'focusgame'
+    'click #gameimage':'focusgame',
+    'click .gamedetails':'unfocusgame',
+    //'click .gamedetails':'filterByType'
+},
+
+setFilter: function (e) {
+    this.filterType = e.currentTarget.value;
+    this.trigger("change:filterType");
+},
+
+filterByType: function ( ) {
+    console.log("filtering");
+    if (this.filterType === "") {
+        this.collection.reset();
+    } else {
+        this.collection.reset({ silent: true });
+ 
+        var filterType = this.filterType,
+            filtered = _.filter(this.collection.models, function (item) {
+            return item.get("minPlayers") === filterType;
+        });
+ 
+        this.collection.reset(filtered);
+    }
+},
+
+
+unfocusgame: function( e ) {
+    $(e.currentTarget).prevUntil('focused').animate({opacity: '1',});
+    $(e.currentTarget).prevUntil('focused').removeClass('focused');
+    $(e.currentTarget).hide(400);
 },
 
 focusgame: function( e ) {
+if( $(e.currentTarget).hasClass('focused')) {
+    $(e.currentTarget).removeClass('focused');
+    $(e.currentTarget).animate({opacity: '1',});
+    $(e.currentTarget).parent().children('.gamedetails').hide(400);
+} else {
+    $(e.currentTarget).addClass('focused');
     $(e.currentTarget).animate({opacity: '.5',});
-    $(e.currentTarget).parent().children('.gamedetails').show();
+    $(e.currentTarget).parent().children('.gamedetails').show(400);
+}
+
 },
 addgame: function( e ) {
     e.preventDefault();
@@ -78,4 +118,16 @@ addgame: function( e ) {
 },
 
 
+});
+
+app.FilterRouter = Backbone.Router.extend({
+    routes: {
+        "filter/:type": "urlFilter"
+    },
+ 
+    urlFilter: function (type) {
+        console.log("reached FilterRouter");
+        this.filterType = type;
+        this.trigger("change:filterType");
+    }
 });

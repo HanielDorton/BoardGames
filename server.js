@@ -31,10 +31,6 @@ app.listen(port, function() {
   console.log("Listening on " + port);
 });
 
-// Routes
-app.get( '/api', function( request, response ) {
-    response.send( 'Library API is running' );
-});
 
 //database connectiong
 var uristring =
@@ -52,77 +48,76 @@ mongoose.connect(uristring, function (err, res) {
 
 
 //Schemas
-var Keywords = new mongoose.Schema({
-    keyword: String
-});
-
-var Book = new mongoose.Schema({
+var Game = new mongoose.Schema({
+    coverImage: String,
     title: String,
-    author: String,
-    releaseDate: Date,
-    keywords: [ Keywords ]
+    minPlayers: Number,
+    maxPlayers: Number,
+    time: Number
 });
 
 
 
 //Models
-var BookModel = mongoose.model( 'Book', Book );
+var GameModel = mongoose.model( 'Game', Game );
 
-//route to get all books from database
-app.get( '/api/books', function( request, response ) {
-    return BookModel.find( function( err, books ) {
+//route to get all games from database
+app.get( '/api/games', function( request, response ) {
+    return GameModel.find( function( err, games ) {
         if( !err ) {
-            return response.send( books );
+            return response.send( games );
         } else {
             return console.log( err );
         }
     });
 });
 
-//route to Insert a new book
-app.post( '/api/books', function( request, response ) {
-    var book = new BookModel({
+//route to Insert a new game
+app.post( '/api/games', function( request, response ) {
+    var game = new GameModel({
+        coverImage: request.body.coverImage,
         title: request.body.title,
-        author: request.body.author,
-        releaseDate: request.body.releaseDate,
-        keywords: request.body.keywords
+        minPlayers: request.body.minPlayers,
+        maxPlayers: request.body.maxPlayers,
+        time: request.body.time,
     });
 
-    return book.save( function( err ) {
+    return game.save( function( err ) {
         if( !err ) {
             console.log( 'created' );
 
-                        return response.send( book );
+                        return response.send( game );
             } else {
                 console.log( err );
             }
     });
 });
 
-//route to Get a single book by id
-app.get( '/api/books/:id', function( request, response ) {
-    return BookModel.findById( request.params.id, function( err, book ) {
+//route to Get a single game by id
+app.get( '/api/games/:id', function( request, response ) {
+    return GameModel.findById( request.params.id, function( err, game ) {
         if( !err ) {
-            return response.send( book );
+            return response.send( game );
         } else {
             return console.log( err );
         }
     });
 });
 
-//Route to update a book
-app.put( '/api/books/:id', function( request, response ) {
-    console.log( 'Updating book ' + request.body.title );
-    return BookModel.findById( request.params.id, function( err, book ) {
-        book.title = request.body.title;
-        book.author = request.body.author;
-        book.releaseDate = request.body.releaseDate;
-        book.keywords = request.body.keywords;
+//Route to update a game
+app.put( '/api/games/:id', function( request, response ) {
+    console.log( 'Updating game ' + request.body.title );
+    return GameModel.findById( request.params.id, function( err, game ) {
+        game.coverImage = request.body.coverImage;
+        game.title = request.body.title;
+        game.minPlayers = request.body.minPlayers;
+        game.maxPlayers = request.body.maxPlayers;
+        game.time = request.body.time;
 
-        return book.save( function( err ) {
+        return game.save( function( err ) {
             if( !err ) {
-                console.log( 'book updated' );
-            return response.send( book );
+                console.log( 'game updated' );
+            return response.send( game );
         } else {
             console.log( err );
         }
@@ -130,13 +125,13 @@ app.put( '/api/books/:id', function( request, response ) {
     });
 });
 
-//Route to Delete a book
-app.delete( '/api/books/:id', function( request, response ) {
-    console.log( 'Deleting book with id: ' + request.params.id );
-    return BookModel.findById( request.params.id, function( err, book ) {
-        return book.remove( function( err ) {
+//Route to Delete a game
+app.delete( '/api/games/:id', function( request, response ) {
+    console.log( 'Deleting game with id: ' + request.params.id );
+    return GameModel.findById( request.params.id, function( err, game ) {
+        return game.remove( function( err ) {
             if( !err ) {
-                console.log( 'Book removed' );
+                console.log( 'Game removed' );
                 return response.send( '' );
             } else {
                 console.log( err );
@@ -144,3 +139,5 @@ app.delete( '/api/books/:id', function( request, response ) {
         });
     });
 });
+
+

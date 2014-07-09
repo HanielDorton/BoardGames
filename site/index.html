@@ -2,12 +2,9 @@
 <html>
 <head>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="starter-template.css">
-<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="jquery-ui.css">
+<link rel="stylesheet" href="starter-template.css">
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="js/lib/jquery-ui.min.js"></script>
-<script src="js/lib/jquery-dateFormat.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
 <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
@@ -30,9 +27,40 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="default"><a href="#">Home</a></li>
-            <li class="aboutbutton"><a href="#about">About</a></li>
-            <li class="addgamebutton"><a href="#contact">Add Game</a></li>
+            <li class="aboutbutton"><a href="#">About</a></li>
+            <li class="addgamebutton"><a href="# ">Add Game</a></li>
+	    <li class="dropdown">
+<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+    Players: 
+    <span class="caret"></span>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#">Players: </a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/1">Players: 1</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/2">Players: 2</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/3">Players: 3</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/4">Players: 4</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/5">Players: 5</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/6">Players: 6</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/7">Players: 7</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/8">Players: 8</a></li>
+  </ul>
+	    <li class="dropdown">
+<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+    Time: 
+    <span class="caret"></span>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Time: </a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/30">Time: 30-60</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/60">Time: 60-90</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/90">Time: 90-120</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/120">Time: 120-240</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/240">Time: 240-360</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/360">Time: 360+</a></li>
+  </ul>
           </ul>
+
+
+
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -52,28 +80,34 @@
 <div id="games">
     <form id="addgame" action="#">
         <div>
-            <label for="coverImage">CoverImage: </label><input id="coverImage" type="file" />
+            <label for="coverImage">CoverImage: </label><input id="coverImage" type="text" />
             <label for="title">Title: </label><input id="title" type="text" />
-            <label for="author">Author: </label><input id="author" type="text" />
-            <label for="releaseDate">Release date: </label><input id="releaseDate" type="text" />
-            <label for="keywords">Keywords: </label><input id="keywords" type="text" />
+            <label for="minPlayers">Minimum Players: </label><input id="minPlayers" type="number" />
+            <label for="maxPlayers">Maximum Players: </label><input id="maxPlayers" type="number" />
+            <label for="time">Time: </label><input id="time" type="number" />
             <button id="add">Add</button>
         </div>
     </form>
 </div>
+<div class="row">
+<div class="col-sm-4">
+<script id="gameTemplate" type="text/template">
+    <div class="col-sm-4 panel-body eachgame <%= minPlayers %> <%= maxPlayers %> <%= time %>">
 
-<script id="bookTemplate" type="text/template">
-    <div class="eachgame">
-
-    <img id="gameimage" src="<%= coverImage %>"/>
+    <img id="gameimage" src="<%= coverImage %>" width=100% height=300 onerror="this.src = '/img/default.jpeg'"/>
     <ul class ="gamedetails">
-        <li><%= title %></li>
-        <li><%= author %></li>
-	<li><%= $.format.date( new Date( releaseDate ), 'MMMM yyyy' ) %></li>
-        <li><% _.each( keywords, function( keyobj ) {%> <%= keyobj.keyword %><% } ); %></li>
+        <li><h3><%= title %></h3></li>
+        <li><h4>Players: <%= minPlayers %> - <%= maxPlayers %></h4></li>
+        <li><h4>Time: <%= time %> minutes</h4></li>
+
     </ul>
     </div>
 </script>
+</div>
+
+<footer>
+- created by Daniel Horton -
+</footer>
 
 <script src="js/models.js"></script>
 <script src="js/collections.js"></script>

@@ -5,5 +5,34 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
-//the rest is my css:
+//Above came from Bootstrap Starter Template, rest is mine.
+.special{
+position:relative;
+margin-top: 10px;
+margin-left: -10px
+padding:5px;
+float:right;
+}
 
+img {
+position: relative;
+}
+.col-sm-4{
+ cursor:pointer;
+}
+.gamedetails{
+   position: absolute;
+   top: 10%;
+   left: 2%;
+   width: 100%;
+   margin: 0 auto;
+}
+.gamedetails li {
+list-style-type: none;
+margin:10%;
+}
+footer{
+ clear: both;
+ text-align: center;
+ margin-top:275px;
+}
