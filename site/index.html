@@ -34,28 +34,27 @@
     Players: 
     <span class="caret"></span>
   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/0">Players: </a></li>
-    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/1">Players: 1</a></li>
-    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/2">Players: 2</a></li>
-    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/3">Players: 3</a></li>
-    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/4">Players: 4</a></li>
-    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/5">Players: 5</a></li>
-    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/6">Players: 6</a></li>
-    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/7">Players: 7</a></li>
-    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#filter/8">Players: 8</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#players/0">Players: </a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#players/1">Players: 1</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#players/2">Players: 2</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#players/3">Players: 3</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#players/4">Players: 4</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#players/5">Players: 5</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#players/6">Players: 6</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#players/7">Players: 7</a></li>
+    <li class="playerFilter" role="players"><a role="menuitem" tabindex="-1" href="#players/8">Players: 8</a></li>
   </ul>
 	    <li class="dropdown">
 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
     Time: 
     <span class="caret"></span>
   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/0">Time: </a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/30">Time: 30-60</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/60">Time: 60-90</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/90">Time: 90-120</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/120">Time: 120-240</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/240">Time: 240-360</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#filter/360">Time: 360+</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/0">Time: </a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/30">Time: 30-60</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/60">Time: 60-90</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/90">Time: 90-120</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/120">Time: 120 and over</a></li>
+
   </ul>
           </ul>
 
@@ -77,20 +76,21 @@
 	</div>
 
   
-<div id="games">
+<div id="gameform">
     <form id="addgame" action="#">
         <div>
-            <label for="coverImage">CoverImage: </label><input id="coverImage" type="text" />
-            <label for="title">Title: </label><input id="title" type="text" />
-            <label for="minPlayers">Minimum Players: </label><input id="minPlayers" type="number" />
-            <label for="maxPlayers">Maximum Players: </label><input id="maxPlayers" type="number" />
-            <label for="time">Time: </label><input id="time" type="number" />
+            <label for="coverImage">CoverImage: </label><input id="coverImage" type="text" /><br/>
+            <label for="title">Title: </label><input id="title" type="text" /><br/>
+            <label for="minPlayers">Minimum Players: </label><input id="minPlayers" type="number" /><br/>
+            <label for="maxPlayers">Maximum Players: </label><input id="maxPlayers" type="number" /><br/>
+            <label for="time">Time: </label><input id="time" type="number" /><br/>
             <button id="add">Add</button>
         </div>
     </form>
 </div>
-<div class="row">
-<div class="col-sm-4">
+<div id="games">
+</div>
+<div class="row col-sm-4">
 <script id="gameTemplate" type="text/template">
     <div class="col-sm-4 panel-body eachgame <%= minPlayers %> <%= maxPlayers %> <%= time %>">
 

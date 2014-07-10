@@ -4,7 +4,6 @@ $(function() {
     lib = new app.LibraryView();
     new app.FilterRouter();
     Backbone.history.start();
-
     $( '#releaseDate' );
     $( '.about' ).hide();
     $( '#addgame' ).hide();  

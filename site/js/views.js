@@ -19,8 +19,8 @@ app.LibraryView = Backbone.View.extend({
     initialize: function() {
     this.collection = new app.Library();
     this.collection.fetch({reset: true});
-    this.filterByType();
-    this.on("change:filterType", this.filterByType, this);
+    this.on("change:playerType", this.filterByPlayer, this);
+    this.on("change:timeType", this.filterByTime, this);
     this.listenTo( this.collection, 'add', this.renderGame );
     this.collection.on("reset", this.render, this);
 },
@@ -51,21 +51,64 @@ events:{
     'click .gamedetails':'unfocusgame',
 },
 
-filterByType: function ( ) {
-    if (!this.filterType || this.filterType === "0") {
-	console.log("No filter Type");
+filterByPlayer: function ( ) {
+    this.$el.empty();
+    if (!this.playerFilter || this.playerFilter === "0") {
+	this.collection.each(function( item ) {
+            this.renderGame( item );
+        }, this );
+	$( '.gamedetails').hide();
+    } else {
+	lib.trigger("reset");
+	if (!this.timeFilter || this.timeFilter === "0") {
+		this.collection.each(function( item ) {
+		    if (item.get("minPlayers") <= Number(this.playerFilter) && 
+			item.get("maxPlayers") >= Number(this.playerFilter)) 
+			{this.renderGame( item );}
+		}, this ); }
+	else {
+		var maxTime;
+		if (this.timeFilter === '120') {maxTime = 99999}
+		else {maxTime = Number(this.timeFilter) +30}
+		this.collection.each(function( item ) {
+		    if (item.get("minPlayers") <= Number(this.playerFilter) && 
+			item.get("maxPlayers") >= Number(this.playerFilter) &&
+			item.get("time") >= Number(this.timeFilter) &&
+			item.get("time") <= maxTime) 
+			{this.renderGame( item );}
+		}, this ); }
+	$( '.gamedetails').hide();
+
+    }
+},
+
+filterByTime: function ( ) {
+    this.$el.empty();
+    if (!this.timeFilter || this.timeFilter === "0") {
 	this.collection.each(function( item ) {
             this.renderGame( item );
         }, this );
 	$( '.gamedetails').hide();
     } else {
         lib.trigger("reset");
- 	console.log(Number(this.filterType));
-        this.collection.each(function( item ) {
-            if (item.get("minPlayers") === Number(this.filterType)) {this.renderGame( item );}
-        }, this );
+	var maxTime;
+	if (this.timeFilter === '120') {maxTime = 99999}
+	else {maxTime = Number(this.timeFilter) +30}
+        if (!this.playerFilter || this.playerFilter === "0") {
+            this.collection.each(function( item ) {
+                if (item.get("time") >= Number(this.timeFilter) &&
+		    item.get("time") <= maxTime)
+		{this.renderGame( item );}
+                }, this ); }
+	else {
+            this.collection.each(function( item ) {
+                if (item.get("time") >= Number(this.timeFilter) &&
+		    item.get("time") <= maxTime &&
+		    item.get("minPlayers") <= Number(this.playerFilter) && 
+		    item.get("maxPlayers") >= Number(this.playerFilter))
+		{this.renderGame( item );}
+                }, this ); }
 	$( '.gamedetails').hide();
-
     }
 },
 
@@ -119,11 +162,17 @@ addgame: function( e ) {
 
 app.FilterRouter = Backbone.Router.extend({
     routes: {
-        "filter/:type": "urlFilter"
+        "players/:type": "playerFilter",
+	"time/:type": "timeFilter"
     },
  
-    urlFilter: function (type) {
-        lib.filterType = type;
-        lib.trigger("change:filterType");
+    playerFilter: function (type) {
+        lib.playerFilter = type;
+        lib.trigger("change:playerType");
+    },
+
+    timeFilter: function (type) {
+        lib.timeFilter = type;
+        lib.trigger("change:timeType");
     }
 });
