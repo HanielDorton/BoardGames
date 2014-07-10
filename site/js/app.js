@@ -1,7 +1,7 @@
 
 var app = app || {};
 $(function() {
-    new app.LibraryView();
+    lib = new app.LibraryView();
     new app.FilterRouter();
     Backbone.history.start();
 

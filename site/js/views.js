@@ -19,16 +19,17 @@ app.LibraryView = Backbone.View.extend({
     initialize: function() {
     this.collection = new app.Library();
     this.collection.fetch({reset: true});
-    this.render();
+    this.filterByType();
     this.on("change:filterType", this.filterByType, this);
     this.listenTo( this.collection, 'add', this.renderGame );
-    this.listenTo( this.collection, 'reset', this.render );
+    this.collection.on("reset", this.render, this);
 },
 
 
 
     // render library by rendering each game in its collection
     render: function() {
+	console.log("Rendering");
         this.collection.each(function( item ) {
             this.renderGame( item );
         }, this );
@@ -48,27 +49,23 @@ events:{
     'click #add':'addgame',
     'click #gameimage':'focusgame',
     'click .gamedetails':'unfocusgame',
-    //'click .gamedetails':'filterByType'
-},
-
-setFilter: function (e) {
-    this.filterType = e.currentTarget.value;
-    this.trigger("change:filterType");
 },
 
 filterByType: function ( ) {
-    console.log("filtering");
-    if (this.filterType === "") {
-        this.collection.reset();
+    if (!this.filterType || this.filterType === "0") {
+	console.log("No filter Type");
+	this.collection.each(function( item ) {
+            this.renderGame( item );
+        }, this );
+	$( '.gamedetails').hide();
     } else {
-        this.collection.reset({ silent: true });
- 
-        var filterType = this.filterType,
-            filtered = _.filter(this.collection.models, function (item) {
-            return item.get("minPlayers") === filterType;
-        });
- 
-        this.collection.reset(filtered);
+        lib.trigger("reset");
+ 	console.log(Number(this.filterType));
+        this.collection.each(function( item ) {
+            if (item.get("minPlayers") === Number(this.filterType)) {this.renderGame( item );}
+        }, this );
+	$( '.gamedetails').hide();
+
     }
 },
 
@@ -126,8 +123,7 @@ app.FilterRouter = Backbone.Router.extend({
     },
  
     urlFilter: function (type) {
-        console.log("reached FilterRouter");
-        this.filterType = type;
-        this.trigger("change:filterType");
+        lib.filterType = type;
+        lib.trigger("change:filterType");
     }
 });
