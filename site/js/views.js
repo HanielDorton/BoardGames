@@ -6,7 +6,6 @@ app.GameView = Backbone.View.extend({
     template: _.template( $( '#gameTemplate' ).html() ),
 
     render: function() {
-        //this.el is what we defined in tagName. use $el to get access to jQuery html() function
         this.$el.html( this.template( this.model.toJSON() ) );
 
         return this;
@@ -27,9 +26,7 @@ app.LibraryView = Backbone.View.extend({
 
 
 
-    // render library by rendering each game in its collection
     render: function() {
-	console.log("Rendering");
         this.collection.each(function( item ) {
             this.renderGame( item );
         }, this );
@@ -37,8 +34,6 @@ app.LibraryView = Backbone.View.extend({
     },
 
 
-    // render a game by creating a GameView and appending the
-    // element it renders to the library's element
     renderGame: function( item ) {
         var gameView = new app.GameView({
             model: item
@@ -54,10 +49,20 @@ events:{
 filterByPlayer: function ( ) {
     this.$el.empty();
     if (!this.playerFilter || this.playerFilter === "0") {
-	this.collection.each(function( item ) {
-            this.renderGame( item );
-        }, this );
-	$( '.gamedetails').hide();
+	if (!this.timeFilter || this.timeFilter === "0") {
+		this.collection.each(function( item ) {
+		    this.renderGame( item );
+		}, this ); }
+	else {
+	    var maxTime;
+	    if (this.timeFilter === '120') {maxTime = 99999}
+	    else {maxTime = Number(this.timeFilter) +30}
+	    this.collection.each(function( item ) {
+		if (item.get("time") >= Number(this.timeFilter) &&
+		item.get("time") <= maxTime)
+		{this.renderGame( item );}
+		}, this ); 
+	}
     } else {
 	lib.trigger("reset");
 	if (!this.timeFilter || this.timeFilter === "0") {
@@ -77,9 +82,9 @@ filterByPlayer: function ( ) {
 			item.get("time") <= maxTime) 
 			{this.renderGame( item );}
 		}, this ); }
-	$( '.gamedetails').hide();
 
     }
+    $( '.gamedetails').hide();
 },
 
 filterByTime: function ( ) {

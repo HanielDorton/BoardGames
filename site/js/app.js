@@ -34,4 +34,7 @@ $('.gameimage' ).on('hover', function() {
     $( '.gamedetails' ).show(400);
     $( '.about' ).show(400);
 });
+$(".dropdown-menu li a").click(function() {
+	$(this).parents('.dropdown').find('.dropdown-toggle').html($(this).text());
+});
 
