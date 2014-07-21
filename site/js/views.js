@@ -90,11 +90,19 @@ filterByPlayer: function ( ) {
 filterByTime: function ( ) {
     this.$el.empty();
     if (!this.timeFilter || this.timeFilter === "0") {
-	this.collection.each(function( item ) {
-            this.renderGame( item );
-        }, this );
-	$( '.gamedetails').hide();
-    } else {
+	if (!this.playerFilter || this.playerFilter === "0") {
+	    this.collection.each(function( item ) {
+                this.renderGame( item );
+            }, this );
+	}
+	else {
+	    this.collection.each(function( item ) {
+	    if (item.get("minPlayers") <= Number(this.playerFilter) && 
+		item.get("maxPlayers") >= Number(this.playerFilter))
+	        {this.renderGame( item );}
+                }, this ); }
+	}
+    else {
         lib.trigger("reset");
 	var maxTime;
 	if (this.timeFilter === '120') {maxTime = 99999}
@@ -113,8 +121,8 @@ filterByTime: function ( ) {
 		    item.get("maxPlayers") >= Number(this.playerFilter))
 		{this.renderGame( item );}
                 }, this ); }
-	$( '.gamedetails').hide();
     }
+    $( '.gamedetails').hide();
 },
 
 
