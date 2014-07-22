@@ -49,6 +49,8 @@ events:{
 resetFilters: function( ) {
     this.playerFilter = "0";
     this.timeFilter = "0"
+    $('.dropdown-toggle').first().html("Players: * <span class=\"caret\"></span>");
+    $('.dropdown-toggle').last().html("Time: * - * <span class=\"caret\"></span>");
     this.filterByPlayer();
 },
 
