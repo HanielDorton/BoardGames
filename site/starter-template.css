@@ -27,18 +27,18 @@ border:2px solid #021a40;
  cursor:pointer;
 }
 .gamedetails{
-   position: absolute;
-   top: 10%;
-   left: 4%;
-   width: 100%;
-   margin: 0 auto;
+position: absolute;
+top: 10%;
+left: 4%;
+width: 100%;
+margin: 0 auto;
 }
 .gamedetails li {
 list-style-type: none;
 margin:10%;
 }
 footer{
- clear: both;
- text-align: center;
- margin-top:275px;
+clear: both;
+text-align: center;
+margin-top:275px;
 }

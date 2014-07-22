@@ -2,7 +2,7 @@
 var application_root = __dirname,
     express = require( 'express' ), //Web framework
     path = require( 'path' ), //Utilities for dealing with file paths
-    mongoose = require ("mongoose"); //MongoDB integration
+    mongoose = require ("mongoose"); //mongoose integration
 
 //Create server
 var app = express();

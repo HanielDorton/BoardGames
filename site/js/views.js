@@ -41,9 +41,15 @@ app.LibraryView = Backbone.View.extend({
         this.$el.append( gameView.render().el );
     },
 events:{
-    'click #add':'addgame',
-    'click #gameimage':'focusgame',
-    'click .gamedetails':'unfocusgame',
+    'click #add':'addGame',
+    'click #gameimage':'focusGame',
+    'click .gamedetails':'unfocusGame',
+},
+
+resetFilters: function( ) {
+    this.playerFilter = "0";
+    this.timeFilter = "0"
+    this.filterByPlayer();
 },
 
 filterByPlayer: function ( ) {
@@ -126,13 +132,13 @@ filterByTime: function ( ) {
 },
 
 
-unfocusgame: function( e ) {
+unfocusGame: function( e ) {
     $(e.currentTarget).prevUntil('focused').animate({opacity: '1',});
     $(e.currentTarget).prevUntil('focused').removeClass('focused');
     $(e.currentTarget).hide(400);
 },
 
-focusgame: function( e ) {
+focusGame: function( e ) {
 if( $(e.currentTarget).hasClass('focused')) {
     $(e.currentTarget).removeClass('focused');
     $(e.currentTarget).animate({opacity: '1',});
@@ -144,7 +150,7 @@ if( $(e.currentTarget).hasClass('focused')) {
 }
 
 },
-addgame: function( e ) {
+addGame: function( e ) {
     e.preventDefault();
 
     var formData = {};
@@ -163,7 +169,6 @@ addgame: function( e ) {
                 formData[ el.id ] = $( el ).val();
             }
         }
-        // Clear input field value
         $( el ).val('');
     });
 
@@ -176,7 +181,8 @@ addgame: function( e ) {
 app.FilterRouter = Backbone.Router.extend({
     routes: {
         "players/:type": "playerFilter",
-	"time/:type": "timeFilter"
+	"time/:type": "timeFilter",
+	"home": "reset"
     },
  
     playerFilter: function (type) {
@@ -187,5 +193,9 @@ app.FilterRouter = Backbone.Router.extend({
     timeFilter: function (type) {
         lib.timeFilter = type;
         lib.trigger("change:timeType");
-    }
+    },
+
+    reset: function () {
+	lib.resetFilters();
+    },
 });

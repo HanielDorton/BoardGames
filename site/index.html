@@ -22,42 +22,42 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand default" href="#">Daniel's Boardgames</a>
+          <a class="navbar-brand default reset" href="#home">Daniel's Boardgames</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="default"><a href="#">Home</a></li>
-            <li class="aboutbutton"><a href="#">About</a></li>
             <!--<li class="addgamebutton"><a href="# ">Add Game</a></li>-->
-	    <li class="dropdown">
-<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-    Players: 
-    <span class="caret"></span></a>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="players"><a role="menuitem" tabindex="-1" href="#players/0">Players: </a></li>
-    <li role="players"><a role="menuitem" tabindex="-1" href="#players/1">Players: 1</a></li>
-    <li role="players"><a role="menuitem" tabindex="-1" href="#players/2">Players: 2</a></li>
-    <li role="players"><a role="menuitem" tabindex="-1" href="#players/3">Players: 3</a></li>
-    <li role="players"><a role="menuitem" tabindex="-1" href="#players/4">Players: 4</a></li>
-    <li role="players"><a role="menuitem" tabindex="-1" href="#players/5">Players: 5</a></li>
-    <li role="players"><a role="menuitem" tabindex="-1" href="#players/6">Players: 6</a></li>
-    <li role="players"><a role="menuitem" tabindex="-1" href="#players/7">Players: 7</a></li>
-    <li role="players"><a role="menuitem" tabindex="-1" href="#players/8">Players: 8</a></li>
-  </ul>
-</li>
- <li class="dropdown">
-<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-    Time: 
-    <span class="caret"></span></a>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/0">Time: </a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/30">Time: 30-60</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/60">Time: 60-90</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/90">Time: 90-120</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/120">Time: 120 and over</a></li>
+		<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		    Players: *
+		<span class="caret"></span></a>
+		  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+		    <li role="players"><a role="menuitem" tabindex="-1" href="#players/0">Players: *</a></li>
+		    <li role="players"><a role="menuitem" tabindex="-1" href="#players/1">Players: 1</a></li>
+		    <li role="players"><a role="menuitem" tabindex="-1" href="#players/2">Players: 2</a></li>
+		    <li role="players"><a role="menuitem" tabindex="-1" href="#players/3">Players: 3</a></li>
+		    <li role="players"><a role="menuitem" tabindex="-1" href="#players/4">Players: 4</a></li>
+		    <li role="players"><a role="menuitem" tabindex="-1" href="#players/5">Players: 5</a></li>
+		    <li role="players"><a role="menuitem" tabindex="-1" href="#players/6">Players: 6</a></li>
+		    <li role="players"><a role="menuitem" tabindex="-1" href="#players/7">Players: 7</a></li>
+		    <li role="players"><a role="menuitem" tabindex="-1" href="#players/8">Players: 8</a></li>
+		  </ul>
+		</li>
 
-  </ul></li>
-          </ul>
+		<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		    Time: * - *
+		<span class="caret"></span></a>
+		  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+		    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/0">Time: * - *</a></li>
+		    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/30">Time: 30-60</a></li>
+		    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/60">Time: 60-90</a></li>
+		    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/90">Time: 90-120</a></li>
+		    <li role="presentation"><a role="menuitem" tabindex="-1" href="#time/120">Time: 120+</a></li>
+
+		  </ul>
+		</li>
+	</ul>
 
 
 
@@ -71,12 +71,7 @@
         <h1>Daniel's Boardgames</h1>
         <p class="lead">A place to view and sort my boardgame collection.</p>
       </div>
-
-	<div class="about">
-	<p>this will be an about the site section, how to use it, link to github, link to portfolio,...</p>
-	</div>
-
-  
+ 
 <div id="games">
     <form id="addgame" action="#">
         <div>
@@ -90,7 +85,7 @@
     </form>
 </div>
 
-<div class="row col-sm-4">
+<div class="row">
 <script id="gameTemplate" type="text/template">
     <div class="col-sm-4 panel-body eachgame <%= minPlayers %> <%= maxPlayers %> <%= time %>">
 
@@ -106,7 +101,7 @@
 </div>
 
 <footer>
-- created by Daniel Horton -
+- created by <a href = "http://hanieldorton.github.io/">Daniel Horton</a> -
 </footer>
 
 <script src="js/models.js"></script>
