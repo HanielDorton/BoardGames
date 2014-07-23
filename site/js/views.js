@@ -147,7 +147,7 @@ if( $(e.currentTarget).hasClass('focused')) {
     $(e.currentTarget).parent().children('.gamedetails').hide(400);
 } else {
     $(e.currentTarget).addClass('focused');
-    $(e.currentTarget).animate({opacity: '.5',});
+    $(e.currentTarget).animate({opacity: '.3',});
     $(e.currentTarget).parent().children('.gamedetails').show(400);
 }
 
